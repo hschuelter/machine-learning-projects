@@ -1,7 +1,8 @@
 import numpy as np
 import math
+import matplotlib.pyplot as plt
 
-class Model:
+class SF_LR_Model:
     def __init__(self, w: float, b: float, alpha: float, iterations: int) -> None:
         self.w = w
         self.b = b
@@ -54,6 +55,7 @@ class Model:
         
         total_cost = (1 / (2 * n)) * cost_sum  
         
+        self.cost = total_cost
         return total_cost
     
     def compute_gradient(self, x: np.ndarray, y: np.ndarray, w: float, b: float) -> tuple[float, float]:
