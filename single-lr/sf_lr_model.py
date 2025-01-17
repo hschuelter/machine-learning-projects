@@ -91,3 +91,9 @@ class SF_LR_Model:
         self.w = _w
         self.b = _b
         return _w, _b
+    
+    def predict(self, n: int):
+        x = np.random.rand(n)
+        f_wb = self.compute_model_output(x)
+        for i, obj in enumerate(f_wb):
+            print(f"({i}) {x[i]:0.2f} is {obj:0.2f}")
