@@ -2,13 +2,14 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 
-class SF_LR_Model:
+class Single_Feature_Model:
     def __init__(self, w: float, b: float, alpha: float, iterations: int) -> None:
         self.w = w
         self.b = b
         self.alpha = alpha
         self.iterations = iterations
         self.cost = math.inf
+        self.cost_history = []
 
     def print_status(self):
         print(f"======================")
@@ -82,14 +83,16 @@ class SF_LR_Model:
         _b = self.b
 
         for i in range(self.iterations):
-            # dw, db = gradient_function(x, y, _w, _b)
             dw, db = self.compute_gradient(x, y, _w, _b)
 
             _w = _w - (self.alpha * dw)
             _b = _b - (self.alpha * db)
 
-        self.w = _w
-        self.b = _b
+            self.w = _w
+            self.b = _b
+            self.cost_history.append(self.compute_cost(x, y))
+
+        self.cost_history = np.array(self.cost_history)
         return _w, _b
     
     def predict(self, n: int):
