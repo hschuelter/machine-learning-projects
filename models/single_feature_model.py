@@ -47,14 +47,14 @@ class Single_Feature_Model:
         return f_wb
     
     def compute_cost(self, x: np.ndarray, y: np.ndarray) -> float:
-        n = x.shape[0]
+        m = x.shape[0]
         cost_sum = 0
-        for i in range(n):
+        for i in range(m):
             f_wb = self.w * x[i] + self.b
             cost = (f_wb - y[i]) ** 2
             cost_sum += cost
         
-        total_cost = (1 / (2 * n)) * cost_sum  
+        total_cost = (1 / (2 * m)) * cost_sum  
         
         self.cost = total_cost
         return total_cost

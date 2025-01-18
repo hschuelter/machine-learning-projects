@@ -6,7 +6,7 @@ class Plot:
         self.x = x
         self.y = y
         self.y_predict = y_predict
-        self.output = output
+        self.output = 'output/' + output
         self.cost_history = cost_history
 
     def plot(self, title: str, xlabel: str, ylabel: str):
@@ -16,7 +16,7 @@ class Plot:
         
         plt.scatter(self.x, self.y, marker='x', c='r')
         plt.plot(self.x, self.y_predict)
-        plt.savefig(self.output + 'figure-linear.png')
+        plt.savefig(self.output + 'figure-function.png')
         plt.clf()
 
     def plot_cost(self):

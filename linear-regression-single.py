@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from single_feature_model import Single_Feature_Model
-from plot import Plot
+from models.single_feature_model import Single_Feature_Model
+from plot.plot import Plot
 
 def import_data() -> tuple[np.ndarray, np.ndarray]:
 	file = './datasets/challenging_single_variable_dataset.csv'
@@ -32,7 +32,7 @@ def main():
 	model.compute_cost(x_train, y_train)
 	model.print_status()
 
-	plot = Plot(x_train, y_train, model.compute_model_output(x_train), model.cost_history, './plots/')
+	plot = Plot(x_train, y_train, model.compute_model_output(x_train), model.cost_history, 'linear/single/')
 	plot.plot('Random values', 'x', 'y')
 	plot.plot_cost()
 
