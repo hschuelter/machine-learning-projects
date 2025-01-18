@@ -1,6 +1,6 @@
 # Stanford Machine Learning Course Algorithms
 
-This repository contains implementations of algorithms covered in the Stanford University Machine Learning course by Andrew Ng. It is designed to help reinforce concepts and provide practical coding examples.
+This repository contains implementations of algorithms covered in the Stanford University Machine Learning course. It is designed to help reinforce concepts and provide practical coding examples.
 
 ## 📚 Overview
 
@@ -26,13 +26,15 @@ The primary focus of this repository is to implement foundational machine learni
 ## 📂 Repository Structure
 
 ```
-├── datasets/                     # Example datasets used for testing
-├── plots/                        # Visualizations of results
-├── plot.py                       # Class designed to handle the results plotting
-├── sf_lr.py                      # Class implementation of Single Feature Linear Regression 
-├── single_feature_regression.py  # Script for running the Single Feature Linear Regression 
-├── multi_feature_regression.py   # Script for running the Multiple Feature Linear Regression 
-└── README.md                     # Project documentation
+├── datasets/                             # Example datasets used for testing
+├── output/                               # Visualizations of results
+├── models/                               # Folder for implementation of Models classes
+│   ├── single_feature_model.py           # Class implementation of Single Feature Linear Regression Model 
+│   └── multi_feature_model.py            # Class implementation of Multiple Feature Linear Regression Model 
+├── plot/                                 # Folder for implementation of Plot classes 
+│   └── plot.py                           # Class designed to handle the results plotting
+├── linear_regression_single.py           # Script for running the Single Feature Linear Regression 
+└── README.md                             # Project documentation
 ```
 
 ## 🚀 Getting Started
@@ -52,11 +54,11 @@ The primary focus of this repository is to implement foundational machine learni
 3. **Run the code**:
    - For single feature regression:
      ```bash
-     python3 single_feature_regression.py
+     python3 linear_regression_single.py
      ```
    - For multiple feature regression:
      ```bash
-     python3 multi_feature_regression.py
+     python3 linear_regression_multiple.py
      ```
 
 ## 📈 Features
