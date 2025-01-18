@@ -2,17 +2,22 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 
-from models.model import Model
+class Multi_Feature_Model:
+    def __init__(self, n: float, alpha: float, iterations: int) -> None:
+        self.alpha = alpha
+        self.iterations = iterations
 
-class Single_Feature_Model(Model):
-    w = 0.0
-    b = 0.0
-    cost = math.inf
-    cost_history = []
+        self.w = np.zeros(n)
+        self.b = 0.0
+        self.cost = math.inf
+        self.cost_history = []
 
-    # def __init__(self, alpha: float, iterations: int) -> None:
-    #     self.alpha = alpha
-    #     self.iterations = iterations
+    def print_status(self):
+        print(f"======================")
+        print(f"Alpha: {self.alpha}")
+        print(f"w: {self.w:0.2f} | b: {self.b:0.2f}")
+        print(f"cost: {self.cost:0.2f}")
+        print(f"======================")
 
     def compute_model_output(self, x: np.ndarray) -> np.ndarray:
         """
@@ -43,14 +48,6 @@ class Single_Feature_Model(Model):
         return f_wb
     
     def compute_cost(self, x: np.ndarray, y: np.ndarray) -> float:
-        """
-        Computes the cost of data.
-        Args:
-            x (ndarray (m,)): Data, m examples 
-            y (ndarray (m,)): Data, m examples 
-        Returns:
-            cost (float): 
-        """
         m = x.shape[0]
         cost_sum = 0
         for i in range(m):
@@ -64,16 +61,6 @@ class Single_Feature_Model(Model):
         return total_cost
     
     def compute_gradient(self, x: np.ndarray, y: np.ndarray, w: float, b: float) -> tuple[float, float]:
-        """
-        Computes the gradient, used for gradient descent.
-        Args:
-            x (ndarray (m,)): Data, m examples 
-            y (ndarray (m,)): Data, m examples 
-            w,b (scalar)    : model parameters 
-        Returns:
-            cost (float): 
-        """
-
         n = x.shape[0]
 
         dw = 0.0
@@ -92,15 +79,7 @@ class Single_Feature_Model(Model):
 
         return dw, db
     
-    def gradient_descent(self, x: np.ndarray, y: np.ndarray) -> tuple[float, float]:
-        """
-        Computes the gradient, used for gradient descent.
-        Args:
-            x (ndarray (m,)): Data, m examples 
-            y (ndarray (m,)): Data, m examples 
-        Returns:
-            w,b (scalar)    : model parameters
-        """
+    def gradient_descent(self, x: np.ndarray, y: np.ndarray):
         _w = self.w
         _b = self.b
 
@@ -116,3 +95,9 @@ class Single_Feature_Model(Model):
 
         self.cost_history = np.array(self.cost_history)
         return _w, _b
+    
+    def predict(self, n: int):
+        x = np.random.rand(n)
+        f_wb = self.compute_model_output(x)
+        for i, obj in enumerate(f_wb):
+            print(f"({i}) {x[i]:0.2f} is {obj:0.2f}")

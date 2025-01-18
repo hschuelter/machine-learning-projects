@@ -18,10 +18,12 @@ def import_data() -> tuple[np.ndarray, np.ndarray]:
 def main():
 	x_train, y_train = import_data()
 
+	w = 0.0
+	b = 0.0
 	iterations = 1000
 	alpha = 0.001
 
-	model = Single_Feature_Model(alpha, iterations)
+	model = Single_Feature_Model(w, b, alpha, iterations)
 	model.compute_cost(x_train, y_train)
 	model.print_status()
 
@@ -34,7 +36,7 @@ def main():
 	plot.plot('Random values', 'x', 'y')
 	plot.plot_cost()
 
-	model.predict(9)
+	# model.predict(9)
 
 if __name__ == "__main__":
 	main() 
