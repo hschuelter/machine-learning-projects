@@ -5,9 +5,8 @@ import pandas as pd
 from sf_lr_model import SF_LR_Model
 from plot import Plot
 
-# ==================
 def import_data() -> tuple[np.ndarray, np.ndarray]:
-	file = './input/single_variable_dataset.csv'
+	file = './datasets/single_variable_dataset.csv'
 	df = pd.read_csv(file, sep=',', header=1)
 	training = df.to_numpy()
 	x_train = np.array(training[:, 0]).astype(float)
@@ -33,8 +32,7 @@ def main():
 	model.compute_cost(x_train, y_train)
 	model.print_status()
 
-
-	plot = Plot(x_train, y_train, model.compute_model_output(x_train), './output/')
+	plot = Plot(x_train, y_train, model.compute_model_output(x_train), './plots/')
 	plot.plot('Random values', 'x', 'y')
 
 	model.predict(100)
