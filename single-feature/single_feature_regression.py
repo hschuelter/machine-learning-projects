@@ -36,7 +36,7 @@ def main():
 	plot.plot('Random values', 'x', 'y')
 	plot.plot_cost()
 
-	# model.predict(100)
+	# model.predict(99)
 
 if __name__ == "__main__":
 	main() 
