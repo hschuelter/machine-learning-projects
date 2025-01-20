@@ -12,7 +12,7 @@ The primary focus of this repository is to implement foundational machine learni
   - Implements a linear regression model for datasets with a single feature.
   - Includes gradient descent for parameter optimization.
 
-- [ ] **Multiple Feature Linear Regression**
+- [x] **Multiple Feature Linear Regression**
   - Extends the single-feature model to handle multiple features.
   - Includes normalization of features and vectorized gradient descent.
 
@@ -34,6 +34,7 @@ The primary focus of this repository is to implement foundational machine learni
 ├── plot/                                 # Folder for implementation of Plot classes 
 │   └── plot.py                           # Class designed to handle the results plotting
 ├── linear_regression_single.py           # Script for running the Single Feature Linear Regression 
+├── linear_regression_multi.py            # Script for running the Multi Feature Linear Regression 
 └── README.md                             # Project documentation
 ```
 
@@ -58,7 +59,7 @@ The primary focus of this repository is to implement foundational machine learni
      ```
    - For multiple feature regression:
      ```bash
-     python3 linear_regression_multiple.py
+     python3 linear_regression_multi.py
      ```
 
 ## 📈 Features
@@ -77,7 +78,6 @@ The primary focus of this repository is to implement foundational machine learni
 ## 🌟 Future Work
 
 - [ ] Polynomial Regression
-- [ ] Logistic Regression
 - [ ] Regularization (Ridge and Lasso)
 - [ ] Support Vector Machines (SVMs)
 - [ ] Neural Networks (Basic Implementation)
