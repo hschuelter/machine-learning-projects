@@ -2,56 +2,59 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 
-class Multi_Feature_Model:
-    def __init__(self, n: float, alpha: float, iterations: int) -> None:
+from models.model import Model
+
+class Multi_Feature_Model(Model):
+    w = 0.0
+    b = 0.0
+    cost = math.inf
+    cost_history = []
+
+    def __init__(self, alpha: float, iterations: int, n: int) -> None:
         self.alpha = alpha
         self.iterations = iterations
-
         self.w = np.zeros(n)
-        self.b = 0.0
-        self.cost = math.inf
-        self.cost_history = []
 
-    def print_status(self):
-        print(f"======================")
-        print(f"Alpha: {self.alpha}")
-        print(f"w: {self.w:0.2f} | b: {self.b:0.2f}")
-        print(f"cost: {self.cost:0.2f}")
-        print(f"======================")
-
-    def compute_model_output(self, x: np.ndarray) -> np.ndarray:
+    def compute_model_output(self, x: np.ndarray) -> float:
         """
-        Computes the prediction of a linear model
+        Computes the prediction
         Args:
-            x (ndarray (m,)): Data, m examples 
-            w,b (scalar)    : model parameters  
+            x (ndarray (n,)): Data, n features
+        Returns
+            f_wb (float): model prediction
+        """
+        f_wb = np.dot(self.w, x) + self.b
+
+        return f_wb
+    
+    def compute_model_output_array(self, x: np.ndarray) -> np.ndarray:
+        """
+        Computes the prediction of a multiple feature model
+        Args:
+            x (ndarray (m,n)): Data, m examples, n features
         Returns
             f_wb (ndarray (m,)): model prediction
         """
         m = x.shape[0]
         f_wb = np.zeros(m)
         for i in range(m):
-            f_wb[i] = self.w * x[i] + self.b
-
-        return f_wb
-    
-    def compute_model_output(self, x: float) -> float:
-        """
-        Computes the prediction of a linear model
-        Args:
-            x (scalar): Data, single example 
-        Returns
-            f_wb (float): model prediction
-        """
-        f_wb = self.w * x + self.b
+            f_wb[i] = np.dot(self.w, x[i]) + self.b
 
         return f_wb
     
     def compute_cost(self, x: np.ndarray, y: np.ndarray) -> float:
+        """
+        Computes the cost of data.
+        Args:
+            x (ndarray (m,n)): Data, m examples, n features
+            y (ndarray (m, )): Data, m examples 
+        Returns:
+            cost (float): 
+        """
         m = x.shape[0]
         cost_sum = 0
         for i in range(m):
-            f_wb = self.w * x[i] + self.b
+            f_wb = np.dot(self.w, x[i]) + self.b
             cost = (f_wb - y[i]) ** 2
             cost_sum += cost
         
@@ -60,26 +63,47 @@ class Multi_Feature_Model:
         self.cost = total_cost
         return total_cost
     
-    def compute_gradient(self, x: np.ndarray, y: np.ndarray, w: float, b: float) -> tuple[float, float]:
-        n = x.shape[0]
+    def compute_gradient(self, x: np.ndarray, y: np.ndarray, w: np.ndarray, b: float) -> tuple[np.ndarray, float]:
+        """
+        Computes the gradient, used for gradient descent.
+        Args:
+            x (ndarray (m,n)): Data, m examples, n features
+            y (ndarray (m, )): Data, m examples
+            w (ndarray (n, )): Data, n features
+            b (scalar)       : model parameters 
+        Returns:
+            dw (ndarray (n,): gradient for the weights
+            db (float)      : gradient for the constant
+        """
 
-        dw = 0.0
+        m = x.shape[0]
+        n = x.shape[1]
+
+        dw = np.zeros(n)
         db = 0.0
 
-        for i in range(n):
-            f_wb = w * x[i] + b
-            dw_i = (f_wb - y[i]) * x[i]
+        for i in range(m):
+            f_wb = np.dot(w, x[i]) + b
+            dw_i = np.dot((f_wb - y[i]), x[i])
             db_i = f_wb - y[i]
 
-            dw += dw_i
-            db += db_i
+            dw = dw + dw_i
+            db = db + db_i
 
-        dw /= n
-        db /= n
+        dw /= m
+        db /= m
 
         return dw, db
     
-    def gradient_descent(self, x: np.ndarray, y: np.ndarray):
+    def gradient_descent(self, x: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, float]:
+        """
+        Computes the gradient, used for gradient descent.
+        Args:
+            x (ndarray (m,n)): Data, m examples, n features 
+            y (ndarray (m, )): Data, m examples 
+        Returns:
+            w,b (scalar)    : model parameters
+        """
         _w = self.w
         _b = self.b
 
@@ -95,9 +119,3 @@ class Multi_Feature_Model:
 
         self.cost_history = np.array(self.cost_history)
         return _w, _b
-    
-    def predict(self, n: int):
-        x = np.random.rand(n)
-        f_wb = self.compute_model_output(x)
-        for i, obj in enumerate(f_wb):
-            print(f"({i}) {x[i]:0.2f} is {obj:0.2f}")
