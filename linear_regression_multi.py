@@ -24,6 +24,8 @@ def main():
 	n = x_train.shape[1]
 
 	model = Multi_Feature_Model(alpha, iterations, n)
+	model.feature_scaling(x_train)
+
 	model.compute_cost(x_train, y_train)
 	model.print_status()
 

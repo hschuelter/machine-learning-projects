@@ -41,6 +41,24 @@ class Multi_Feature_Model(Model):
             f_wb[i] = np.dot(self.w, x[i]) + self.b
 
         return f_wb
+
+    def feature_scaling(self, x: np.ndarray) -> np.ndarray:
+        x = x.transpose()
+        x_scaled = np.zeros(x.shape)
+        m, n = x.shape
+
+        for i, row in enumerate(x):
+            avg = sum(row) / n
+
+            maximum = max(row)
+            minimum = min(row)
+
+            x_scaled[i] = (row - avg) / (maximum - minimum)
+
+
+
+        return x_scaled.transpose()
+
     
     def compute_cost(self, x: np.ndarray, y: np.ndarray) -> float:
         """

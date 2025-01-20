@@ -13,11 +13,28 @@ class Plot:
         plt.title(title)
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
-        
+
         plt.scatter(self.x, self.y, marker='x', c='r')
         plt.plot(self.x, self.y_predict)
         plt.savefig(self.output + 'figure-function.png')
         plt.clf()
+
+    # def plot_data(self, title: str, xlabel: str, ylabel: str):
+    #     plt.title(title)
+    #     plt.xlabel(xlabel)
+    #     plt.ylabel(ylabel)
+
+    #     n = self.x.shape[1]
+
+    #     fig, axs = plt.subplots(1, n)
+    #     fig.suptitle(title)
+
+    #     for i, ax in enumerate(axs):
+    #         ax.scatter(self.x[:, i], self.y, marker='x', c='r')
+    #         ax.plot(self.x[:, i], self.y_predict)
+        
+    #     plt.savefig(self.output + 'figure-function.png')
+    #     plt.clf()
 
     def plot_cost(self):
         plt.title("Cost")
